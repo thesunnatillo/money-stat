@@ -5,21 +5,21 @@ import { GeneralEntity } from "./base.entity";
 export class UsersEntity extends GeneralEntity {
     
     @Column('varchar', { name: 'full_name ', length: 255 })
-        fullName: string
+        fullName: string;
 
     @Column('varchar', { name: 'login ', length: 50, unique: true })
-        login: string
+        login: string;
 
     @Column('varchar', { name: 'password' })
-        password: string
+        password: string;
 
     @Column('varchar', { name: 'status' })
-        status: string
+        status: string;
 
     @Column('varchar', { name: 'role', default: "user" })
-        role: string
+        role: string;
 
     @Column('boolean', { name: 'is_admin', default: false })
-        isAdmin: boolean
+        isAdmin: boolean;
 
 }

@@ -10,7 +10,7 @@ import { configScheme } from '@config/config.scheme';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [ databaseConfig ],
-      envFilePath: [".env"],
+      envFilePath: ["../.env"],
       validationSchema: configScheme
     }),
     AdminModule,
