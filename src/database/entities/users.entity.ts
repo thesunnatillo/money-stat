@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { GeneralEntity } from "./base.entity";
+import { PaymentsEntity } from "./payments/payments.entity";
 
 @Entity({ name: 'users '})
 export class UsersEntity extends GeneralEntity {

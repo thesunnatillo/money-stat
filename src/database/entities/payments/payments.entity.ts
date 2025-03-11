@@ -1,5 +1,7 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { GeneralEntity } from "../base.entity";
+import { UsersEntity } from "../users.entity";
+import { PaymentsTypeEntity } from "./payments-type.entity";
 
 @Entity('payments')
 export class PaymentsEntity extends GeneralEntity {
@@ -10,12 +12,20 @@ export class PaymentsEntity extends GeneralEntity {
     @Column('varchar', { name: 'desc', length: 500 })
         desc: string;
 
-    @Column('int', { name: 'user_id' })
-        user_id: number;
+    @Column('varchar', { name: 'currency_name', default: 'UZS' })
+        currencyName: string;
 
-    @Column('int', { name: 'payments_type_id ' })
-        payments_type_id: number;
+    @OneToOne(() => UsersEntity, (user) => user.id)
+    @JoinColumn({
+        name: 'user_id',
+        referencedColumnName: 'id'
+    })
+        userId: UsersEntity;
 
-    @Column('int', { name: 'currency_type_id' })
-        currency_type_id: number;
+    @OneToOne(() => PaymentsTypeEntity, (payments_types) => payments_types.id)
+    @JoinColumn({
+        name: 'payment_id',
+        referencedColumnName: 'id'
+    })
+        paymentId: PaymentsTypeEntity;
 }
