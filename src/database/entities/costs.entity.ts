@@ -1,10 +1,10 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
-import { GeneralEntity } from "../base.entity";
-import { UsersEntity } from "../users.entity";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { GeneralEntity } from "./base.entity";
+import { UsersEntity } from "./users.entity";
 import { PaymentsTypeEntity } from "./payments-type.entity";
 
-@Entity('payments')
-export class PaymentsEntity extends GeneralEntity {
+@Entity('costs')
+export class CostsEntity extends GeneralEntity {
 
     @Column('numeric', { name: 'amount' })
         amount: number;
@@ -24,8 +24,9 @@ export class PaymentsEntity extends GeneralEntity {
 
     @OneToOne(() => PaymentsTypeEntity, (payments_types) => payments_types.id)
     @JoinColumn({
-        name: 'payment_id',
+        name: 'cost_id',
         referencedColumnName: 'id'
     })
         paymentId: PaymentsTypeEntity;
+        
 }
