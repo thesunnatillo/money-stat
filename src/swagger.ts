@@ -2,6 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { AuthModule } from './modules/admin/auth/auth.module';
 import { UserAuthModule } from './modules/user/auth/user-auth.module';
+import { CostsModule } from './modules/user/costs/costs.module';
 
 export function createSwaggerDocs(app: INestApplication): OpenAPIObject[] {
   // Admin
@@ -25,7 +26,7 @@ export function createSwaggerDocs(app: INestApplication): OpenAPIObject[] {
     .build();
 
   const userDocument = SwaggerModule.createDocument(app, userConfig, {
-    include: [UserAuthModule],
+    include: [UserAuthModule, CostsModule],
   });
 
   return [adminDocument, userDocument];

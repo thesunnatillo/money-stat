@@ -1,10 +1,8 @@
-import { Column, Entity } from "typeorm";
-import { GeneralEntity } from "./base.entity";
+import { Column, Entity } from 'typeorm';
+import { GeneralEntity } from './base.entity';
 
-@Entity({ name: 'payments_types'})
+@Entity({ name: 'payments_types' })
 export class PaymentsTypeEntity extends GeneralEntity {
-
-    @Column('varchar', { name: 'name' })
-        name: string;
-
+  @Column('varchar', { name: 'name' })
+  name: string;
 }

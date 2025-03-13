@@ -9,12 +9,12 @@ import { configScheme } from '@config/config.scheme';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [ databaseConfig ],
-      envFilePath: ["../.env"],
-      validationSchema: configScheme
+      load: [databaseConfig],
+      envFilePath: ['../.env'],
+      validationSchema: configScheme,
     }),
     AdminModule,
-    UsersModule
+    UsersModule,
   ],
 })
 export class AppModule {}
