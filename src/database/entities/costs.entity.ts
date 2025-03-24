@@ -1,9 +1,9 @@
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { GeneralEntity } from './base.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { GeneralEntity } from '../../shared/utils/base.entity';
 import { UsersEntity } from './users.entity';
 import { PaymentsTypeEntity } from './payments-type.entity';
 
-@Entity('costs')
+@Entity({ name: 'costs', schema: 'money_stat' })
 export class CostsEntity extends GeneralEntity {
   @Column('numeric', { name: 'amount' })
   amount: number;
@@ -14,17 +14,17 @@ export class CostsEntity extends GeneralEntity {
   @Column('varchar', { name: 'currency_name', default: 'UZS' })
   currencyName: string;
 
-  @OneToOne(() => UsersEntity, (user) => user.id)
+  @ManyToOne(() => UsersEntity, (user) => user.id)
   @JoinColumn({
     name: 'user_id',
     referencedColumnName: 'id',
   })
-  userId: UsersEntity;
+  user: UsersEntity;
 
   @OneToOne(() => PaymentsTypeEntity, (payments_types) => payments_types.id)
   @JoinColumn({
-    name: 'cost_id',
+    name: 'payments_type_id',
     referencedColumnName: 'id',
   })
-  paymentId: PaymentsTypeEntity;
+  paymentType: PaymentsTypeEntity;
 }

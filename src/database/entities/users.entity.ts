@@ -1,7 +1,7 @@
 import { Column, Entity } from 'typeorm';
-import { GeneralEntity } from './base.entity';
+import { GeneralEntity } from '../../shared/utils/base.entity';
 
-@Entity({ name: 'users ' })
+@Entity({ name: 'users', schema: 'money_stat' })
 export class UsersEntity extends GeneralEntity {
   @Column('varchar', { name: 'full_name ', length: 255 })
   fullName: string;
