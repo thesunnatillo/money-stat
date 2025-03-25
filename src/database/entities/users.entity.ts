@@ -12,7 +12,7 @@ export class UsersEntity extends GeneralEntity {
   @Column('varchar', { name: 'password' })
   password: string;
 
-  @Column('varchar', { name: 'status' })
+  @Column('varchar', { name: 'status', default: 'active' })
   status: string;
 
   @Column('varchar', { name: 'role', default: 'user' })
