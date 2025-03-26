@@ -1,7 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Req, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserAuthService } from './user-auth.service';
-import { SignUpDto } from './dto/signup.dto';
+import { SignInDto, SignUpDto } from './dto/auth.dto';
+import { Request, Response } from 'express';
+import { setResult } from '@app/shared/utils/helpers';
+import { SignInReq, SignUpReq } from './interface/auth.interface';
 
 @Controller()
 @ApiTags('auth')
@@ -9,7 +12,44 @@ export class UserAuthController {
   constructor(private readonly userAuthService: UserAuthService) {}
 
   @Post('signup')
-  async signup(@Body() data: SignUpDto) {
-    return await this.userAuthService.signup(data);
+  async signUp(@Body() body: SignUpDto, @Res() res: Response) {
+    const reqData: SignUpReq = {
+      fullName: body.fullName,
+      login: body.login,
+      password: body.password,
+    };
+
+    const { data, errId } = await this.userAuthService.signUp(reqData);
+    const response = setResult(errId, data);
+
+    if (errId) {
+      return res.status(HttpStatus.BAD_REQUEST).jsonp(response);
+    }
+
+    return res.status(HttpStatus.OK).jsonp(response);
+  }
+
+  @Post('signin')
+  async signIn(
+    @Body() body: SignInDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const token = req.headers.authorization.split(' ')[1];
+
+    const reqData: SignInReq = {
+      login: body.login,
+      password: body.password,
+      token,
+    };
+
+    const { data, errId } = await this.userAuthService.signIn(reqData);
+    const response = setResult(errId, data);
+
+    if (errId) {
+      return res.status(HttpStatus.UNAUTHORIZED).jsonp(response);
+    }
+
+    return res.status(HttpStatus.OK).jsonp(response);
   }
 }
