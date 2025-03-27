@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+
 import { AuthModule } from './modules/admin/auth/auth.module';
 import { UserAuthModule } from './modules/user/auth/user-auth.module';
 import { CostsModule } from './modules/user/costs/costs.module';

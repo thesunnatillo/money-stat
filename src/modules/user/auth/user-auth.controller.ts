@@ -1,9 +1,10 @@
 import { Body, Controller, HttpStatus, Post, Req, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { UserAuthService } from './user-auth.service';
-import { SignInDto, SignUpDto } from './dto/auth.dto';
 import { Request, Response } from 'express';
 import { setResult } from '@app/shared/utils/helpers';
+
+import { UserAuthService } from './user-auth.service';
+import { SignInDto, SignUpDto } from './dto/auth.dto';
 import { SignInReq, SignUpReq } from './interface/auth.interface';
 
 @Controller()

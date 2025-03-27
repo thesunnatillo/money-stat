@@ -1,6 +1,7 @@
 import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
-import { CostsService } from './costs.service';
 import { ApiTags } from '@nestjs/swagger';
+
+import { CostsService } from './costs.service';
 
 @Controller()
 @ApiTags('costs')

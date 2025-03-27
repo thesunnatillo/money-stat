@@ -1,4 +1,5 @@
 import { Column, Entity } from 'typeorm';
+
 import { GeneralEntity } from '../../shared/utils/base.entity';
 
 @Entity({ name: 'users', schema: 'money_stat' })

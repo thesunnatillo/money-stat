@@ -1,5 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+
 import { GeneralEntity } from '../../shared/utils/base.entity';
+
 import { UsersEntity } from './users.entity';
 import { PaymentsTypeEntity } from './payments-type.entity';
 

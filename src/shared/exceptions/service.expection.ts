@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { JsonWebTokenError } from '@nestjs/jwt';
+
 import { MyError } from '../utils/errors';
 
 export class ServiceExceptions {

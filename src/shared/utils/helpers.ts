@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcryptjs';
+
 import { HttpResponse } from './response';
 import { MyError } from './errors';
 

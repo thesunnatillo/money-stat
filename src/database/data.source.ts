@@ -1,6 +1,7 @@
-import dbConfig from '../config/database.config';
 import { ConfigService } from '@nestjs/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
+
+import dbConfig from '../config/database.config';
 
 const configService = new ConfigService({ database: dbConfig() });
 

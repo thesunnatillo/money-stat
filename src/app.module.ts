@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AdminModule } from './modules/admin/admin.module';
-import { UsersModule } from './modules/user/users.module';
 import { ConfigModule } from '@nestjs/config';
 import databaseConfig from '@config/database.config';
-import jwtConfig from './config/jwt.config';
 import { configScheme } from '@config/config.scheme';
 import { DataSource } from 'typeorm';
+
+import jwtConfig from './config/jwt.config';
+import { UsersModule } from './modules/user/users.module';
+import { AdminModule } from './modules/admin/admin.module';
 import { AppDataSource } from './database/data.source';
 
 @Module({

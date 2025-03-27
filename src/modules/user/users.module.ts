@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { UserAuthModule } from './auth/user-auth.module';
 import { RouterModule } from '@nestjs/core';
+
+import { UserAuthModule } from './auth/user-auth.module';
 import { CostsModule } from './costs/costs.module';
 
 @Module({

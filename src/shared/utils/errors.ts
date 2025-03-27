@@ -70,9 +70,9 @@ export class MyError {
       case 102:
         return MyError.getErrorByLang(MyError.LOGIN_ALREADY_USED);
       case 103:
-        return MyError.getErrorByLang(MyError.INVALID_TOKEN)
+        return MyError.getErrorByLang(MyError.INVALID_TOKEN);
       case 104:
-        return MyError.getErrorByLang(MyError.LOGIN_OR_PASSWORD)
+        return MyError.getErrorByLang(MyError.LOGIN_OR_PASSWORD);
       default:
         return MyError.getErrorByLang(MyError.UNKNOWN_ERROR);
     }

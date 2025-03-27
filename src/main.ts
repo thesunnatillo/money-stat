@@ -1,13 +1,16 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { createSwaggerDocs } from './swagger';
 import { SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { ValidationPipe } from '@nestjs/common';
+
+import { createSwaggerDocs } from './swagger';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.setGlobalPrefix('api');
+  app.useGlobalPipes(new ValidationPipe());
 
   const [adminDocument, userDocument] = createSwaggerDocs(app);
 
