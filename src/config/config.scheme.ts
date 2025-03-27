@@ -8,4 +8,10 @@ export const configScheme = Joi.object({
   DB_USER: Joi.string(),
   DB_PASSWORD: Joi.string(),
   DB_NAME: Joi.string(),
+
+  // JWT
+  JWT_SECRET: Joi.string(),
+  JWT_ACCESS_EXPIRES: Joi.string(),
+  JWT_REFRESH_EXPIRES: Joi.string()
+  
 });
