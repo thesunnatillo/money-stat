@@ -1,56 +1,46 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { EntityManager } from "typeorm";
-import { UsersEntity } from "../entities/users.entity";
-import { hashPassword } from "@app/shared/utils/helpers";
-import { AppDataSource } from "../data.source";
+import { Injectable, Logger } from '@nestjs/common';
+import { EntityManager } from 'typeorm';
+import { hashPassword } from '@app/shared/utils/helpers';
+
+import { UsersEntity } from '../entities/users.entity';
+import { AppDataSource } from '../data.source';
 
 @Injectable()
 export class SeedService {
+  private logger = new Logger(SeedService.name);
 
-    private logger = new Logger(SeedService.name);
+  async run() {
+    try {
+      AppDataSource.transaction(async (manager) => {
+        await this.createSuperAdmin(manager);
+      });
 
-    async run() {
-        try {
-
-            AppDataSource.transaction(async (manager) => {
-                await this.createSuperAdmin(manager)
-            })
-
-            this.logger.log("Seed data complate.")
-            
-        } catch (e) {
-
-            this.logger.error(e)
-
-        }
+      this.logger.log('Seed data complate.');
+    } catch (e) {
+      this.logger.error(e);
     }
+  }
 
-    async createSuperAdmin(manager: EntityManager): Promise<void> {
+  async createSuperAdmin(manager: EntityManager): Promise<void> {
+    try {
+      const admin = await manager.findOne(UsersEntity, {
+        where: { login: 'superadmin' },
+      });
 
-        try {
+      if (admin) {
+        this.logger.verbose('SuperAdmin already exists');
+        return;
+      }
 
-            const admin = await manager.findOne(UsersEntity, { where: { login: "superadmin" }})
-
-            if (admin) {
-
-                this.logger.verbose("SuperAdmin already exists");
-                return;
-
-            }
-
-            await manager.save(UsersEntity, {
-                fullName: "Superbek",
-                login: "superadmin",
-                password: hashPassword("12345"),
-                role: "admin",
-                isAdmin: true
-            })
-
-        } catch (e) {
-
-            this.logger.error(e)
-
-        }
-
+      await manager.save(UsersEntity, {
+        fullName: 'Superbek',
+        login: 'superadmin',
+        password: hashPassword('12345'),
+        role: 'admin',
+        isAdmin: true,
+      });
+    } catch (e) {
+      this.logger.error(e);
     }
+  }
 }

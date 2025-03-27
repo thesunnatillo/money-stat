@@ -12,5 +12,5 @@ export const configScheme = Joi.object({
   // JWT
   JWT_SECRET: Joi.string(),
   JWT_ACCESS_EXPIRES: Joi.string(),
-  JWT_REFRESH_EXPIRES: Joi.string()
+  JWT_REFRESH_EXPIRES: Joi.string(),
 });

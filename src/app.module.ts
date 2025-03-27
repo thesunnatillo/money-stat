@@ -24,11 +24,9 @@ import { AppDataSource } from './database/data.source';
     {
       provide: DataSource,
       useFactory: async () => {
-
-        const logger = new Logger(AppModule.name)
+        const logger = new Logger(AppModule.name);
 
         try {
-
           if (!AppDataSource.isInitialized) {
             await AppDataSource.initialize();
           }
