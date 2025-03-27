@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import databaseConfig from '@config/database.config';
 import { configScheme } from '@config/config.scheme';
@@ -24,16 +24,20 @@ import { AppDataSource } from './database/data.source';
     {
       provide: DataSource,
       useFactory: async () => {
+
+        const logger = new Logger(AppModule.name)
+
         try {
+
           if (!AppDataSource.isInitialized) {
             await AppDataSource.initialize();
           }
 
-          console.log('Data source has been initialized');
+          logger.log('Data source has been initialized');
 
           return AppDataSource;
         } catch (error) {
-          console.error('Error during Data Source initialization', error);
+          logger.error('Error during Data Source initialization', error);
           process.exit();
         }
       },
