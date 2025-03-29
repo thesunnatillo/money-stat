@@ -3,7 +3,6 @@ import { MinLength } from '@app/validator/min-length.validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SignUpDto {
-
   @ApiProperty()
   @MinLength(5)
   @MaxLength(55)
@@ -18,11 +17,9 @@ export class SignUpDto {
   @MinLength(8)
   @MaxLength(24)
   password: string;
-
 }
 
 export class SignInDto {
-
   @ApiProperty()
   @MinLength(5)
   @MaxLength(32)
@@ -32,5 +29,4 @@ export class SignInDto {
   @MinLength(8)
   @MaxLength(24)
   password: string;
-
 }
