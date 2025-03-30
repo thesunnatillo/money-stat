@@ -20,24 +20,25 @@ export class UserAuthService {
 
   async signUp(data: SignUpReq): Promise<BaseResponse<SignUpRes>> {
     try {
-      const user = await UsersEntity.findOne({ where: { login: data.login } });
+      const user = await UsersEntity.findOne({ where: { username: data.username } });
 
       if (user) {
         return { errId: MyError.LOGIN_ALREADY_USED.errId, data: null };
       }
 
-      const hashedPassword = hashPassword(data.password);
+      const hash = hashPassword(data.password);
 
       const savedUser = await UsersEntity.save({
         fullName: data.fullName,
-        login: data.login,
-        password: hashedPassword,
+        username: data.username,
+        password: hash,
       });
 
       const payload: TokenPayload = {
         id: savedUser.id,
         fullName: savedUser.fullName,
-        login: savedUser.login,
+        username: savedUser.username,
+        email: savedUser.username ?? 'null',
         role: savedUser.role,
       };
 
@@ -61,10 +62,10 @@ export class UserAuthService {
       }
 
       const user = await UsersEntity.findOne({
-        where: { login: tokenPayload.login },
+        where: { username: tokenPayload.username },
       });
 
-      if (!user || user.login !== data.login) {
+      if (!user || user.username !== data.username) {
         return { errId: MyError.LOGIN_OR_PASSWORD.errId, data: null };
       }
 
@@ -77,7 +78,8 @@ export class UserAuthService {
       const payload: TokenPayload = {
         id: user.id,
         fullName: user.fullName,
-        login: user.login,
+        username: user.username,
+        email: user.email ?? 'null',
         role: user.role,
       };
 

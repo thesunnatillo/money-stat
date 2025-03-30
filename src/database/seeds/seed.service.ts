@@ -24,7 +24,7 @@ export class SeedService {
   async createSuperAdmin(manager: EntityManager): Promise<void> {
     try {
       const admin = await manager.findOne(UsersEntity, {
-        where: { login: 'superadmin' },
+        where: { username: 'superadmin' },
       });
 
       if (admin) {
@@ -34,7 +34,7 @@ export class SeedService {
 
       await manager.save(UsersEntity, {
         fullName: 'Superbek',
-        login: 'superadmin',
+        username: 'superadmin',
         password: hashPassword('12345'),
         role: 'admin',
         isAdmin: true,

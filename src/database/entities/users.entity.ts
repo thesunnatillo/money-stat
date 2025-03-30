@@ -7,8 +7,8 @@ export class UsersEntity extends GeneralEntity {
   @Column('varchar', { name: 'full_name ', length: 255 })
   fullName: string;
 
-  @Column('varchar', { name: 'login ', length: 50, unique: true })
-  login: string;
+  @Column('varchar', { name: 'username ', length: 50, unique: true })
+  username: string;
 
   @Column('varchar', { name: 'password' })
   password: string;
@@ -21,4 +21,7 @@ export class UsersEntity extends GeneralEntity {
 
   @Column('boolean', { name: 'is_admin', default: false })
   isAdmin: boolean;
+
+  @Column('varchar', { name: 'email' })
+  email: string;
 }

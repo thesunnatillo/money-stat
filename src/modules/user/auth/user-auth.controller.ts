@@ -16,7 +16,7 @@ export class UserAuthController {
   async signUp(@Body() body: SignUpDto, @Res() res: Response) {
     const reqData: SignUpReq = {
       fullName: body.fullName,
-      login: body.login,
+      username: body.username,
       password: body.password,
     };
 
@@ -39,7 +39,7 @@ export class UserAuthController {
     const token = req.headers.authorization.split(' ')[1];
 
     const reqData: SignInReq = {
-      login: body.login,
+      username: body.username,
       password: body.password,
       token,
     };

@@ -11,7 +11,12 @@ export class SignUpDto {
   @ApiProperty()
   @MinLength(5)
   @MaxLength(32)
-  login: string;
+  username: string;
+
+  @ApiProperty()
+  @MinLength(5)
+  @MaxLength(32)
+  email: string;
 
   @ApiProperty()
   @MinLength(8)
@@ -23,7 +28,7 @@ export class SignInDto {
   @ApiProperty()
   @MinLength(5)
   @MaxLength(32)
-  login: string;
+  username: string;
 
   @ApiProperty()
   @MinLength(8)
