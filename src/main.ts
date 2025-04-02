@@ -1,14 +1,15 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import * as morgan from 'morgan';
-import * as fs from 'fs';
 
 import { createSwaggerDocs } from './swagger';
 import { AppModule } from './app.module';
-import * as path from 'path';
 
 const logger = new Logger('Main');
 
@@ -22,7 +23,9 @@ async function bootstrap() {
 
   app.enableCors();
 
-  const logsStream = fs.createWriteStream(path.join(__dirname, '../logs.log'), { flags: 'a' })
+  const logsStream = fs.createWriteStream(path.join(__dirname, '../logs.log'), {
+    flags: 'a',
+  });
   app.use(morgan('combined', { stream: logsStream }));
 
   const [adminDocument, userDocument] = createSwaggerDocs(app);
