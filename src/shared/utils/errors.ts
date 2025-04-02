@@ -25,7 +25,7 @@ export class MyError {
 
   public static LOGIN_OR_PASSWORD = new MyError(
     'login yoki parol xato',
-    'login or password mistake',
+    'login or password is mistake',
     true,
     104,
   );

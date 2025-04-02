@@ -36,7 +36,7 @@ export class SeedService {
         fullName: 'Superbek',
         username: 'superadmin',
         email: 'admin@ms.uz',
-        password: hashPassword('12345'),
+        password: hashPassword('123456789'),
         role: 'admin',
         isAdmin: true,
       });
