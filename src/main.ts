@@ -2,10 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
+import helmet from 'helmet';
 
 import { createSwaggerDocs } from './swagger';
 import { AppModule } from './app.module';
-import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -13,7 +13,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
 
-  app.use(helmet())
+  app.use(helmet());
 
   const [adminDocument, userDocument] = createSwaggerDocs(app);
 

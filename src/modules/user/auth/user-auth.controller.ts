@@ -1,6 +1,6 @@
-import { Body, Controller, HttpStatus, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { setResult } from '@app/shared/utils/helpers';
 
 import { UserAuthService } from './user-auth.service';
@@ -17,6 +17,7 @@ export class UserAuthController {
     const reqData: SignUpReq = {
       fullName: body.fullName,
       username: body.username,
+      email: body.email,
       password: body.password,
     };
 
@@ -31,17 +32,10 @@ export class UserAuthController {
   }
 
   @Post('signin')
-  async signIn(
-    @Body() body: SignInDto,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
-    const token = req.headers.authorization.split(' ')[1];
-
+  async signIn(@Body() body: SignInDto, @Res() res: Response) {
     const reqData: SignInReq = {
       username: body.username,
       password: body.password,
-      token,
     };
 
     const { data, errId } = await this.userAuthService.signIn(reqData);

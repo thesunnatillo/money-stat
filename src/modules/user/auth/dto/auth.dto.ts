@@ -1,6 +1,7 @@
 import { MaxLength } from '@app/validator/max-length.validator';
 import { MinLength } from '@app/validator/min-length.validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail } from 'class-validator';
 
 export class SignUpDto {
   @ApiProperty()
@@ -16,6 +17,7 @@ export class SignUpDto {
   @ApiProperty()
   @MinLength(5)
   @MaxLength(32)
+  @IsEmail()
   email: string;
 
   @ApiProperty()

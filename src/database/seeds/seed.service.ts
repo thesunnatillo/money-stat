@@ -35,6 +35,7 @@ export class SeedService {
       await manager.save(UsersEntity, {
         fullName: 'Superbek',
         username: 'superadmin',
+        email: 'admin@ms.uz',
         password: hashPassword('12345'),
         role: 'admin',
         isAdmin: true,

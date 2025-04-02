@@ -20,7 +20,9 @@ export class UserAuthService {
 
   async signUp(data: SignUpReq): Promise<BaseResponse<SignUpRes>> {
     try {
-      const user = await UsersEntity.findOne({ where: { username: data.username } });
+      const user = await UsersEntity.findOne({
+        where: { username: data.username },
+      });
 
       if (user) {
         return { errId: MyError.LOGIN_ALREADY_USED.errId, data: null };
@@ -31,6 +33,7 @@ export class UserAuthService {
       const savedUser = await UsersEntity.save({
         fullName: data.fullName,
         username: data.username,
+        email: data.email,
         password: hash,
       });
 
@@ -55,14 +58,8 @@ export class UserAuthService {
 
   async signIn(data: SignInReq): Promise<BaseResponse<SignInRes>> {
     try {
-      const tokenPayload = await this.jwtService.verifyToken(data.token);
-
-      if (!tokenPayload) {
-        return { errId: MyError.INVALID_TOKEN.errId, data: null };
-      }
-
       const user = await UsersEntity.findOne({
-        where: { username: tokenPayload.username },
+        where: { username: data.username },
       });
 
       if (!user || user.username !== data.username) {

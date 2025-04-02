@@ -1,6 +1,7 @@
 export interface SignUpReq {
   fullName: string;
   username: string;
+  email: string;
   password: string;
 }
 
@@ -12,7 +13,6 @@ export interface SignUpRes {
 export interface SignInReq {
   username: string;
   password: string;
-  token: string;
 }
 
 export interface SignInRes {
