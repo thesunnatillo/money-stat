@@ -15,6 +15,8 @@ async function bootstrap() {
 
   app.use(helmet());
 
+  app.enableCors();
+
   const [adminDocument, userDocument] = createSwaggerDocs(app);
 
   SwaggerModule.setup('docs-user', app, userDocument);
