@@ -1,11 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
+import * as morgan from 'morgan';
+import * as fs from 'fs';
 
 import { createSwaggerDocs } from './swagger';
 import { AppModule } from './app.module';
+import * as path from 'path';
+
+const logger = new Logger('Main');
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -17,6 +22,9 @@ async function bootstrap() {
 
   app.enableCors();
 
+  const logsStream = fs.createWriteStream(path.join(__dirname, '../logs.log'), { flags: 'a' })
+  app.use(morgan('combined', { stream: logsStream }));
+
   const [adminDocument, userDocument] = createSwaggerDocs(app);
 
   SwaggerModule.setup('docs-user', app, userDocument);
@@ -24,4 +32,10 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+bootstrap()
+  .then(() => {
+    logger.log(`Money Stat started at port 3000`);
+  })
+  .catch((e) => {
+    logger.error(`Catch exception in bootstrap app: ${e}`);
+  });
