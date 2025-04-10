@@ -2,7 +2,7 @@ import { Column, Entity } from 'typeorm';
 
 import { GeneralEntity } from '../../shared/utils/base.entity';
 
-@Entity({ name: 'users', schema: 'money_stat' })
+@Entity({ name: 'users', schema: 'public2' })
 export class UsersEntity extends GeneralEntity {
   @Column('varchar', { name: 'full_name', length: 255 })
   fullName: string;
@@ -18,9 +18,6 @@ export class UsersEntity extends GeneralEntity {
 
   @Column('varchar', { name: 'role', default: 'user' })
   role: string;
-
-  @Column('boolean', { name: 'is_admin', default: false })
-  isAdmin: boolean;
 
   @Column('varchar', { name: 'email' })
   email: string;

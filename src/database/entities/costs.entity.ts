@@ -5,7 +5,7 @@ import { GeneralEntity } from '../../shared/utils/base.entity';
 import { UsersEntity } from './users.entity';
 import { PaymentsTypeEntity } from './payments-type.entity';
 
-@Entity({ name: 'costs', schema: 'money_stat' })
+@Entity({ name: 'costs', schema: 'public2' })
 export class CostsEntity extends GeneralEntity {
   @Column('numeric', { name: 'amount' })
   amount: number;
