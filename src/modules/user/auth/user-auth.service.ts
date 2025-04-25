@@ -12,6 +12,7 @@ import {
   SignUpReq,
   SignUpRes,
   TokenPayload,
+  ValidateTokenReq,
 } from './interface/auth.interface';
 
 @Injectable()
@@ -41,8 +42,9 @@ export class UserAuthService {
         id: savedUser.id,
         fullName: savedUser.fullName,
         username: savedUser.username,
-        email: savedUser.username ?? 'null',
+        email: savedUser.email ?? 'null',
         role: savedUser.role,
+        status: savedUser.status
       };
 
       const [accessToken, refreshToken] = await this.jwtService.signTokens(
@@ -78,6 +80,7 @@ export class UserAuthService {
         username: user.username,
         email: user.email ?? 'null',
         role: user.role,
+        status: user.status
       };
 
       const [accessToken, refreshToken] = await this.jwtService.signTokens(
@@ -90,4 +93,25 @@ export class UserAuthService {
       return ServiceExceptions.handle(e, UserAuthService.name, 'signIn');
     }
   }
+
+  async validateToken(data: ValidateTokenReq): Promise<BaseResponse<TokenPayload>> {
+
+    try {
+
+        const tokenPayload = await this.jwtService.verifyToken(data.token);
+
+        // Check user exists
+        await UsersEntity.findOneByOrFail({
+            id: tokenPayload.id
+        });
+
+        return { errId: null, data: tokenPayload };
+
+    } catch (e) {
+
+        return ServiceExceptions.handle(e, UserAuthService.name, "validateToken");
+
+    }
+
+}
 }

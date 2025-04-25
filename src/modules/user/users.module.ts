@@ -24,5 +24,6 @@ import { CostsModule } from './costs/costs.module';
       },
     ]),
   ],
+  exports: [UserAuthModule]
 })
 export class UsersModule {}

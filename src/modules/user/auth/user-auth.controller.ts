@@ -6,6 +6,7 @@ import { setResult } from '@app/shared/utils/helpers';
 import { UserAuthService } from './user-auth.service';
 import { SignInDto, SignUpDto } from './dto/auth.dto';
 import { SignInReq, SignUpReq } from './interface/auth.interface';
+import { Public } from '@app/decorator/public.decorator';
 
 @Controller()
 @ApiTags('auth')
@@ -13,6 +14,7 @@ export class UserAuthController {
   constructor(private readonly userAuthService: UserAuthService) {}
 
   @Post('signup')
+  @Public()
   async signUp(@Body() body: SignUpDto, @Res() res: Response) {
     const reqData: SignUpReq = {
       fullName: body.fullName,
@@ -32,6 +34,7 @@ export class UserAuthController {
   }
 
   @Post('signin')
+  @Public()
   async signIn(@Body() body: SignInDto, @Res() res: Response) {
     const reqData: SignInReq = {
       username: body.username,

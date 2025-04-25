@@ -26,4 +26,9 @@ export interface TokenPayload {
   username: string;
   email: string;
   role: string;
+  status?: string;
+}
+
+export interface ValidateTokenReq {
+  token: string;
 }

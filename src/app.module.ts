@@ -11,6 +11,7 @@ import { UsersModule } from './modules/user/users.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { AppDataSource } from './database/data.source';
 import rateLimitConfig from './config/rate-limit.config';
+import { AuthGuard } from './guard/auth.guard';
 
 @Module({
   imports: [
@@ -37,7 +38,11 @@ import rateLimitConfig from './config/rate-limit.config';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: ThrottlerGuard,
+      useClass: ThrottlerGuard
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard
     },
     {
       provide: DataSource,

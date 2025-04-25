@@ -6,6 +6,7 @@ import { setResult } from '@app/shared/utils/helpers';
 import { AuthService } from './auth.service';
 import { SingInReq } from './interface/signin.interface';
 import { SignInDto } from './dto/signin.dto';
+import { Public } from '@app/decorator/public.decorator';
 
 @Controller()
 @ApiTags('auth')
@@ -13,6 +14,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signin')
+  @Public()
   async signIn(@Body() body: SignInDto, @Res() res: Response) {
     const reqData: SingInReq = {
       username: body.username,

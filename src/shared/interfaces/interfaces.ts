@@ -3,3 +3,7 @@ export interface BaseResponse<T> {
   data: T;
   total?: number;
 }
+
+export interface SuccessRes {
+  success: boolean;
+}
