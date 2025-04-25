@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCostReq } from './interface/costs.interface';
 import { BaseResponse, SuccessRes } from '@app/shared/interfaces/interfaces';
 import { ServiceExceptions } from '@app/shared/exceptions/service.expection';
 import { CostsEntity } from '@app/database/entities/costs.entity';
+
+import { CreateCostReq } from './interface/costs.interface';
 
 @Injectable()
 export class CostsService {
@@ -15,24 +16,20 @@ export class CostsService {
   }
 
   async create(data: CreateCostReq): Promise<BaseResponse<SuccessRes>> {
-    
     try {
-
       const cost = CostsEntity.create({
         user: { id: data.userId },
         amount: data.amount,
         desc: data.desc,
-        paymentType: { id: data.paymentType }
-      })
+        paymentType: { id: data.paymentType },
+      });
 
-      await cost.save()
-      
-      return { data: { success: true } }
+      await cost.save();
 
+      return { data: { success: true } };
     } catch (e) {
-      return ServiceExceptions.handle(e, CostsService.name, "create");
+      return ServiceExceptions.handle(e, CostsService.name, 'create');
     }
-
   }
 
   update() {

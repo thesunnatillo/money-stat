@@ -44,7 +44,7 @@ export class UserAuthService {
         username: savedUser.username,
         email: savedUser.email ?? 'null',
         role: savedUser.role,
-        status: savedUser.status
+        status: savedUser.status,
       };
 
       const [accessToken, refreshToken] = await this.jwtService.signTokens(
@@ -80,7 +80,7 @@ export class UserAuthService {
         username: user.username,
         email: user.email ?? 'null',
         role: user.role,
-        status: user.status
+        status: user.status,
       };
 
       const [accessToken, refreshToken] = await this.jwtService.signTokens(
@@ -94,24 +94,20 @@ export class UserAuthService {
     }
   }
 
-  async validateToken(data: ValidateTokenReq): Promise<BaseResponse<TokenPayload>> {
-
+  async validateToken(
+    data: ValidateTokenReq,
+  ): Promise<BaseResponse<TokenPayload>> {
     try {
+      const tokenPayload = await this.jwtService.verifyToken(data.token);
 
-        const tokenPayload = await this.jwtService.verifyToken(data.token);
+      // Check user exists
+      await UsersEntity.findOneByOrFail({
+        id: tokenPayload.id,
+      });
 
-        // Check user exists
-        await UsersEntity.findOneByOrFail({
-            id: tokenPayload.id
-        });
-
-        return { errId: null, data: tokenPayload };
-
+      return { errId: null, data: tokenPayload };
     } catch (e) {
-
-        return ServiceExceptions.handle(e, UserAuthService.name, "validateToken");
-
+      return ServiceExceptions.handle(e, UserAuthService.name, 'validateToken');
     }
-
-}
+  }
 }

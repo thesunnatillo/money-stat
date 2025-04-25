@@ -2,11 +2,11 @@ import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { setResult } from '@app/shared/utils/helpers';
+import { Public } from '@app/decorator/public.decorator';
 
 import { UserAuthService } from './user-auth.service';
 import { SignInDto, SignUpDto } from './dto/auth.dto';
 import { SignInReq, SignUpReq } from './interface/auth.interface';
-import { Public } from '@app/decorator/public.decorator';
 
 @Controller()
 @ApiTags('auth')

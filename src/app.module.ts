@@ -38,11 +38,11 @@ import { AuthGuard } from './guard/auth.guard';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: ThrottlerGuard
+      useClass: ThrottlerGuard,
     },
     {
       provide: APP_GUARD,
-      useClass: AuthGuard
+      useClass: AuthGuard,
     },
     {
       provide: DataSource,
